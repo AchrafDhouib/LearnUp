@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('passed_exams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
+            $table->foreignId('exam_id')->nullable()->constrained('exams')->onDelete('set null');
+            $table->json('answers');
+            $table->unsignedInteger('score')->default(0);
             $table->timestamps();
         });
     }
