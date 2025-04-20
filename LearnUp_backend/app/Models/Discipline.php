@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Discipline extends Model
 {
-    protected $guarded = ['id'];
+    protected $fillable = ['name'];
 
     public function specialities(): HasMany
     {

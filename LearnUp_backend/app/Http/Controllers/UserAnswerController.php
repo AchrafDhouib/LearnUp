@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
 use Illuminate\Http\Request;
+use App\Models\UserAnswer;
 
-class QuestionController extends Controller
+class UserAnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,9 @@ class QuestionController extends Controller
     public function index()
     {
         try {
-            $questions = Question::with('answers', 'exam')->get();
+            $userAnswers = UserAnswer::with('passedExam', 'question', 'answer')->get();
 
-            return response()->json($questions);
+            return response()->json($userAnswers);
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -27,14 +27,14 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         try {
-            $question = new Question([
-                'exam_id' => $request->input('exam_id'),
-                'question' => $request->input('question'),
-                'type' => $request->input('type'),
+            $userAnswer = new UserAnswer([
+                'passed_exam_id' => $request->input('passed_exam_id'),
+                'question_id' => $request->input('question_id'),
+                'answer_id' => $request->input('answer_id'),
             ]);
-            $question->save();
+            $userAnswer->save();
 
-            return response()->json($question);
+            return response()->json($userAnswer);
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
         }
@@ -46,9 +46,9 @@ class QuestionController extends Controller
     public function show($id)
     {
         try {
-            $question = Question::with('answers', 'exam')->findOrFail($id);
+            $userAnswer = UserAnswer::with('passedExam', 'question', 'answer')->findOrFail($id);
 
-            return response()->json($question);
+            return response()->json($userAnswer);
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
         }
@@ -60,10 +60,10 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $question = Question::findOrFail($id);
-            $question->update($request->all());
+            $userAnswer = UserAnswer::findOrFail($id);
+            $userAnswer->update($request->all());
 
-            return response()->json($question);
+            return response()->json($userAnswer);
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
         }
@@ -76,10 +76,10 @@ class QuestionController extends Controller
     {
 
         try {
-            $question = Question::findOrFail($id);
-            $question->delete();
+            $userAnswer = UserAnswer::findOrFail($id);
+            $userAnswer->delete();
 
-            return response()->json('Question deleted');
+            return response()->json('UserAnswer deleted');
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
         }

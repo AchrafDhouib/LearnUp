@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Certification extends Model
 {
-    protected $guarded = ['id'];
+    protected $fillable = ['passed_exam_id'];
+
+    public function passedExam()
+    {
+        return $this->belongsTo(PassedExams::class);
+    }
 }
