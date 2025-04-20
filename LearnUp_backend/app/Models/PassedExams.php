@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class PassedExams extends Model
 {
-    protected $guarded = ['id'];
+    protected $fillable = ['user_id', 'exam_id', 'score'];
+
+    public function student()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function exam()
+    {
+        return $this->belongsTo(Exams::class);
+    }
 }

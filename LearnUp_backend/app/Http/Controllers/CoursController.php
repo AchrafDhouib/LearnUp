@@ -85,4 +85,26 @@ class CoursController extends Controller
         }
 
     }
+
+    public function getBySpeciality($specialityId)
+    {
+        try {
+            $courses = Cours::bySpecialityId($specialityId)->with('speciality', 'exam')->get();
+
+            return response()->json($courses);
+        } catch (\Exception $e) {
+            return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
+        }
+    }
+
+    public function getByDiscipline($disciplineId)
+    {
+        try {
+            $courses = Cours::byDisciplineId($disciplineId)->with('speciality', 'exam')->get();
+
+            return response()->json($courses);
+        } catch (\Exception $e) {
+            return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
+        }
+    }
 }

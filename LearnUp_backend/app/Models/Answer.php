@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Answer extends Model
 {
-    protected $guarded = ['id'];
+    protected $fillable = ['question_id', 'answer', 'is_correct'];
 
     public function question(): BelongsTo
     {

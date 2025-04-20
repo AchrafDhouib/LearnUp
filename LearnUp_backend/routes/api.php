@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\PassedExamsController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SpecialityController;
+use App\Http\Controllers\UserAnswerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGroupController;
 use Illuminate\Http\Request;
@@ -32,6 +37,8 @@ Route::get('/specialities/{id}', [SpecialityController::class, 'show']);
 
 Route::get('/courses', [CoursController::class, 'index']);
 Route::get('/courses/{id}', [CoursController::class, 'show']);
+Route::get('/courses/speciality/{specialityId}', [CoursController::class, 'getBySpeciality']);
+Route::get('/courses/discipline/{disciplineId}', [CoursController::class, 'getByDiscipline']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -72,5 +79,36 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user-groups/{userId}', [UserGroupController::class, 'show']);
     Route::post('/user-group/add', [UserGroupController::class, 'addUserToGroup']);
     Route::post('/user-group/remove', [UserGroupController::class, 'removeUserFromGroup']);
+
+    Route::get('/passed-exams', [PassedExamsController::class,'index']);
+    Route::get('/passed-exams/{id}', [PassedExamsController::class,'show']);
+    Route::post('/passed-exams', [PassedExamsController::class,'store']);
+    Route::put('/passed-exams/{id}', [PassedExamsController::class,'update']);
+    Route::delete('/passed-exams/{id}', [PassedExamsController::class,'destroy']);
+
+    Route::get('/certifications', [CertificationController::class,'index']);
+    Route::get('/certifications/{id}', [CertificationController::class,'show']);
+    Route::post('/certifications', [CertificationController::class,'store']);
+    Route::put('/certifications/{id}', [CertificationController::class,'update']);
+    Route::delete('/certifications/{id}', [CertificationController::class,'destroy']);
+
+    Route::get('/questions', [QuestionController::class,'index']);
+    Route::get('/questions/{id}', [QuestionController::class,'show']);
+    Route::post('/questions', [QuestionController::class,'store']);
+    Route::put('/questions/{id}', [QuestionController::class,'update']);
+    Route::delete('/questions/{id}', [QuestionController::class,'destroy']);
+
+    
+    Route::get('/answers', [AnswerController::class,'index']);
+    Route::get('/answers/{id}', [AnswerController::class,'show']);
+    Route::post('/answers', [AnswerController::class,'store']);
+    Route::put('/answers/{id}', [AnswerController::class,'update']);
+    Route::delete('/answers/{id}', [AnswerController::class,'destroy']);
+
+    Route::get('/user-answers', [UserAnswerController::class,'index']);
+    Route::get('/user-answers/{id}', [UserAnswerController::class,'show']);
+    Route::post('/user-answers', [UserAnswerController::class,'store']);
+    Route::put('/user-answers/{id}', [UserAnswerController::class,'update']);
+    Route::delete('/user-answers/{id}', [UserAnswerController::class,'destroy']);
 
 });
