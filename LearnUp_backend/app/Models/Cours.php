@@ -20,6 +20,11 @@ class Cours extends Model
         return $this->hasOne(Exams::class);
     }
 
+    public function creator() // created by teacher
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
+
     public function exams(): HasMany
     {
         return $this->hasMany(Exams::class);

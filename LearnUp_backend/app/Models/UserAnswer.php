@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\PassedExamsScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ScopedBy([PassedExamsScope::class])]
 class UserAnswer extends Model
 {
     protected $fillable = ['passed_exam_id', 'question_id', 'answer_id'];
