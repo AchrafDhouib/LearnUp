@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class RegisteredUserController extends Controller
+class RegisteredTeacherController extends Controller
 {
     /**
      * Handle an incoming registration request.
@@ -47,14 +47,28 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         // Assign the role to the user
-        $user->assignRole('student');
+        $user->assignRole('teacher');
+
+        $role = $user->getRoleNames();
 
         // Automatically login the user
         $token = $user->createToken($user->name)->plainTextToken;
 
         return response()->json([
+            'success' => true,
             'message' => 'User registered successfully!',
-            'user' => $user,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at,
+                'role' => $role,
+                'is_active' => true,
+                'created_at' => $user->created_at,
+                'updated_at' => $user->updated_at,
+            ],
             'access_token' => $token,
         ], 201);
     }

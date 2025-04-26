@@ -13,7 +13,7 @@ class CoursController extends Controller
     public function index()
     {
         try {
-            $courses = Cours::with('speciality', 'exam')->get();
+            $courses = Cours::with('speciality', 'exam', 'creator')->get();
 
             return response()->json($courses);
         } catch (\Exception $e) {
@@ -46,7 +46,7 @@ class CoursController extends Controller
     public function show($id)
     {
         try {
-            $course = Cours::with('speciality', 'exam')->findOrFail($id);
+            $course = Cours::with('speciality', 'exam', 'creator')->findOrFail($id);
 
             return response()->json($course);
         } catch (\Exception $e) {

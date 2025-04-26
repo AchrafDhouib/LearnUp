@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\Auth\AuthenticatedAdminSessionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedStudentSessionController;
+use App\Http\Controllers\Auth\AuthenticatedTeacherSessionController;
+use App\Http\Controllers\Auth\EndSessionController;
+use App\Http\Controllers\Auth\RegisteredStudentController;
+use App\Http\Controllers\Auth\RegisteredTeacherController;
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\DisciplineController;
@@ -21,12 +26,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user()->load('role');
 });
 
-Route::post('/auth/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/auth/register', [RegisteredUserController::class, 'store']);
+Route::post('/auth/student/login', [AuthenticatedStudentSessionController::class, 'store']);
+Route::post('/auth/teacher/login', [AuthenticatedTeacherSessionController::class, 'store']);
+Route::post('/auth/admin/login', [AuthenticatedAdminSessionController::class, 'store']);
+
+Route::post('/auth/student/register', [RegisteredStudentController::class, 'store']);
+Route::post('/auth/teacher/register', [RegisteredTeacherController::class, 'store']);
 Route::get('/auth/users', [UserController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/auth/logout', [AuthenticatedSessionController::class, 'destroy']);
+    Route::post('/auth/logout', [EndSessionController::class, 'destroy']);
 });
 
 Route::get('/desciplines', [DisciplineController::class, 'index']);

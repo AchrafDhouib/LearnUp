@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request; // this
 use Illuminate\Support\Facades\Auth; // this
 
-class AuthenticatedSessionController extends Controller
+class AuthenticatedAdminSessionController extends Controller
 {
     /**
      * Handle an incoming authentication request.
@@ -27,6 +27,12 @@ class AuthenticatedSessionController extends Controller
                 'success' => false,
                 'message' => 'Login failed. Please check your credentials.',
             ], 401);
+        }
+        if (!$user->hasRole('admin')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized',
+            ], 403);
         }
 
         $token = $user->createToken($user->name)->plainTextToken;
