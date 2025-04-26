@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Discipline;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class DisciplineController extends Controller
 {
@@ -13,7 +14,7 @@ class DisciplineController extends Controller
     public function index()
     {
         try {
-            $diciplines = Discipline::all();
+            $diciplines = Discipline::with('specialities')->get();
 
             return response()->json($diciplines);
         } catch (\Exception $e) {
@@ -44,7 +45,7 @@ class DisciplineController extends Controller
     public function show($id)
     {
         try {
-            $dicipline = Discipline::findOrFail($id);
+            $dicipline = Discipline::with('specialities')->findOrFail($id);
 
             return response()->json($dicipline);
         } catch (\Exception $e) {
