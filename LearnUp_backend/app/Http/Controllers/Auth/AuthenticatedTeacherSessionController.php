@@ -50,6 +50,7 @@ class AuthenticatedTeacherSessionController extends Controller
                 'email_verified_at' => $user->email_verified_at,
                 'role' => $role,
                 'is_active' => $user->is_active,
+                'avatar' => $user->avatar,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
             ],

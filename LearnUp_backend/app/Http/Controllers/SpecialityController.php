@@ -30,6 +30,8 @@ class SpecialityController extends Controller
             $speciality = new Speciality([
                 'name' => $request->input('name'),
                 'discipline_id' => $request->input('discipline_id'),
+                'description' => $request->input('description'),
+                'image' => $request->input('image'),
             ]);
             $speciality->save();
 

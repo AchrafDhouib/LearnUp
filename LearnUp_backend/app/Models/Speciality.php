@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Speciality extends Model
 {
-    protected $fillable = ['name', 'discipline_id'];
+    protected $fillable = ['name', 'discipline_id', 'description', 'image'];
 
     public function discipline(): BelongsTo
     {

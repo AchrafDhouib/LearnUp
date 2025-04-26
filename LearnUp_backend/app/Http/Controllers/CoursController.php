@@ -31,6 +31,8 @@ class CoursController extends Controller
                 'name' => $request->input('name'),
                 'speciality_id' => $request->input('speciality_id'),
                 'creator_id' => $request->input('creator_id'),
+                'description' => $request->input('description'),
+                'image' => $request->input('image'),
             ]);
             $course->save();
 
