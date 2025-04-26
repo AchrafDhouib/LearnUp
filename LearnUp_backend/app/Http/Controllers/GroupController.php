@@ -34,6 +34,9 @@ class GroupController extends Controller
                 'creator_id' => $request->input('creator_id'),
                 'start_date' => $request->input('start_date'),
                 'end_date' => $request->input('end_date'),
+                'image' => $request->input('image'),
+                'price'  => $request->input('price'),
+                'max_students' => $request->input('max_students'),
             ]);
             $group->save();
 

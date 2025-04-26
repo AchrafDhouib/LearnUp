@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cours extends Model
 {
-    protected $fillable = ['name', 'speciality_id', 'creator_id'];
+    protected $fillable = ['name', 'speciality_id', 'creator_id', 'description', 'image'];
 
     public function speciality()
     {

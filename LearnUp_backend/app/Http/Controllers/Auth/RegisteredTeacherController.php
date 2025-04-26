@@ -26,6 +26,7 @@ class RegisteredTeacherController extends Controller
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'avatar' => ['nullable', 'string'],
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
@@ -41,6 +42,7 @@ class RegisteredTeacherController extends Controller
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'password' => Hash::make($validatedData['password']),
+            'avatar' => $validatedData['avatar'],
         ]);
 
         // Trigger the Registered event
@@ -66,6 +68,7 @@ class RegisteredTeacherController extends Controller
                 'email_verified_at' => $user->email_verified_at,
                 'role' => $role,
                 'is_active' => true,
+                'avatar' => $user->avatar,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
             ],

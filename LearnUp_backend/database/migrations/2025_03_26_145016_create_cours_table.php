@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('speciality_id')->nullable()->constrained('specialities')->onDelete('set null');
             $table->foreignId('creator_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->text('description')->nullable();
+            $table->string('image',1024)->nullable();
             $table->timestamps();
         });
     }

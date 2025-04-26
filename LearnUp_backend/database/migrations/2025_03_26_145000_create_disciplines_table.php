@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('disciplines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('image',1024)->nullable();
             $table->timestamps();
         });
     }

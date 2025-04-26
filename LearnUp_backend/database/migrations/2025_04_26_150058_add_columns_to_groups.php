@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::table('groups', function (Blueprint $table) {
             $table->dateTime('start_date')->default(now());
             $table->dateTime('end_date')->default(now()->addMonths(1));
+            $table->text('description')->nullable();
+            $table->string('image',1024)->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->integer('max_students')->nullable();   
         });
     }
 
@@ -25,6 +29,10 @@ return new class extends Migration
         Schema::table('groups', function (Blueprint $table) {
             $table->dropColumn('start_date');
             $table->dropColumn('end_date');
-        });
+            $table->dropColumn('description');
+            $table->dropColumn('image');
+            $table->dropColumn('price');
+            $table->dropColumn('max_students');
+            });
     }
 };

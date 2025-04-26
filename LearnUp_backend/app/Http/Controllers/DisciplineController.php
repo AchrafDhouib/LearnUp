@@ -30,6 +30,8 @@ class DisciplineController extends Controller
         try {
             $dicipline = new Discipline([
                 'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'image' => $request->input('image'),
             ]);
             $dicipline->save();
 
