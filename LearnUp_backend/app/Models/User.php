@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -55,16 +56,16 @@ class User extends Authenticatable
         ];
     }
 
-    public function role()
+    public function userAnswers(): HasMany
     {
-         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')->select('name');
+        return $this->hasMany(UserAnswer::class)
+            ->with('passedExam');
     }
 
-    public function answers(): BelongsToMany
+    public function passedExams(): HasMany
     {
-        return $this->belongsToMany(Answer::class, 'user_answers', 'user_id', 'answer_id');
+        return $this->hasMany(PassedExams::class);
     }
-
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id');
@@ -78,4 +79,17 @@ class User extends Authenticatable
             });
         });
     }
+
+    public function activate()
+    {
+        $this->is_active = true;
+        $this->save();
+    }
+
+    public function deactivate()
+    {
+        $this->is_active = false;
+        $this->save();
+    }
+    
 }
