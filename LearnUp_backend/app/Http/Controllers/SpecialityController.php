@@ -13,7 +13,7 @@ class SpecialityController extends Controller
     public function index()
     {
         try {
-            $specialities = Speciality::with('discipline')->get();
+            $specialities = Speciality::with('discipline', 'courses')->get();
 
             return response()->json($specialities);
         } catch (\Exception $e) {
@@ -47,7 +47,7 @@ class SpecialityController extends Controller
     public function show($id)
     {
         try {
-            $speciality = Speciality::with('discipline')->findOrFail($id);
+            $speciality = Speciality::with('discipline', 'courses')->findOrFail($id);
 
             return response()->json($speciality);
         } catch (\Exception $e) {

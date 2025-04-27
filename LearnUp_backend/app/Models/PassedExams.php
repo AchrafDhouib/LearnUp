@@ -20,4 +20,9 @@ class PassedExams extends Model
     {
         return $this->belongsTo(Exams::class);
     }
+
+    public function userAnswer()
+    {
+        return $this->hasMany(UserAnswer::class);
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UserGroupController extends Controller
@@ -16,7 +16,7 @@ class UserGroupController extends Controller
         ]);
 
         try {
-            DB::table('user_groups')->insert([
+            DB::table('user_groups')->insert([  
                 'user_id' => $request->user_id,
                 'group_id' => $request->group_id,
                 'created_at' => now(),

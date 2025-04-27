@@ -43,6 +43,7 @@ class RegisteredTeacherController extends Controller
             'last_name' => $validatedData['last_name'],
             'password' => Hash::make($validatedData['password']),
             'avatar' => $validatedData['avatar'],
+            'is_active' => 0,
         ]);
 
         // Trigger the Registered event

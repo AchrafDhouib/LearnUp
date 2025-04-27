@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 #[ScopedBy([PassedExamsScope::class])]
 class UserAnswer extends Model
 {
-    protected $fillable = ['passed_exam_id', 'question_id', 'answer_id'];
+    protected $fillable = ['user_id', 'passed_exam_id', 'question_id', 'answer_id'];
 
     public function passedExam()
     {
@@ -24,5 +24,10 @@ class UserAnswer extends Model
     public function answer()
     {
         return $this->belongsTo(Answer::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

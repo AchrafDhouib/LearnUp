@@ -36,6 +36,9 @@ Route::get('/auth/users', [UserController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [EndSessionController::class, 'destroy']);
+    Route::patch('/users/{id}/activate', [UserController::class, 'activate'])->middleware('role:admin');
+    Route::patch('/users/{id}/deactivate', [UserController::class, 'deactivate'])->middleware('role:admin');
+
 });
 
 Route::get('/desciplines', [DisciplineController::class, 'index']);

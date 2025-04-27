@@ -14,7 +14,7 @@ class GroupController extends Controller
     public function index()
     {
         try {
-            $groups = Group::with('course', 'users')->get();
+            $groups = Group::with('course', 'students', 'creator')->get();
 
             return response()->json($groups);
         } catch (\Exception $e) {
@@ -29,6 +29,7 @@ class GroupController extends Controller
     {
         try {
             $group = new Group([
+                'name' => $request->input('name'),
                 'description' => $request->input('description'),
                 'cour_id' => $request->input('cour_id'),
                 'creator_id' => $request->input('creator_id'),
@@ -52,7 +53,7 @@ class GroupController extends Controller
     public function show($id)
     {
         try {
-            $group = Group::with('course', 'users')->findOrFail($id);
+            $group = Group::with('course', 'students', 'creator')->findOrFail($id);
 
             return response()->json($group);
         } catch (\Exception $e) {

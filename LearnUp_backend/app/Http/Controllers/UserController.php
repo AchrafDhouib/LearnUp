@@ -22,14 +22,64 @@ class UserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function index()
+    // public function index(Request $request)
+    // {
+    //     try {
+    //         $role = $request->query('role'); // get ?role=someRole from URL
+    
+    //         $query = User::with('roles', 'groups', 'userAnswers', 'passedExams');
+    
+    //         if ($role) {
+    //             $query->whereHas('roles', function ($q) use ($role) {
+    //                 $q->where('name', $role);
+    //             });
+    //         }
+    
+    //         $users = $query->get();
+    
+    //         return response()->json($users);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => $e->getMessage()], 500);
+    //     }
+    // }
+
+    public function index(Request $request)
     {
         try {
-            $users = User::with('reviews', 'contracts')->get();
+            $role = $request->query('role');
+
+            $query = User::with('groups', 'userAnswers.passedExam'); // ❌ No need to eager load 'roles'
+
+            if ($role) {
+                $query->whereHas('roles', function ($q) use ($role) {
+                    $q->where('name', $role);
+                });
+            }
+
+            $users = $query->get();
+
+            // Transform users
+            $users = $users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'avatar' => $user->avatar,
+                    'email' => $user->email,
+                    'is_active' => $user->is_active,
+                    'roles' => $user->getRoleNames(), // ✅ only role names
+                    'groups' => $user->groups,         // original groups
+                    'grouped_user_answers' => $user->userAnswers->groupBy('passed_exam_id'), // grouped answers
+                ];
+            });
 
             return response()->json($users);
+
         } catch (\Exception $e) {
-            return response()->json($e->getMessage());
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
 
@@ -90,6 +140,28 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+
+    public function activate(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->activate();
+
+        return response()->json([
+            'message' => 'User activated successfully!',
+            'user' => $user,
+        ], 202);
+    }
+
+    public function deactivate(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->deactivate();
+
+        return response()->json([
+            'message' => 'User deactivated successfully!',
+            'user' => $user,
+        ], 202);
     }
 
     /**
