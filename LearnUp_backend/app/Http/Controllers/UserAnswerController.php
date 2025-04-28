@@ -31,6 +31,7 @@ class UserAnswerController extends Controller
                 'passed_exam_id' => $request->input('passed_exam_id'),
                 'question_id' => $request->input('question_id'),
                 'answer_id' => $request->input('answer_id'),
+                'user_id' => $request->input('user_id'),
             ]);
             $userAnswer->save();
 

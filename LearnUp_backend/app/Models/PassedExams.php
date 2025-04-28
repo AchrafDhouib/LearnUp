@@ -13,16 +13,21 @@ class PassedExams extends Model
 
     public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function exam()
     {
-        return $this->belongsTo(Exams::class);
+        return $this->belongsTo(Exams::class, 'exam_id');
     }
 
     public function userAnswer()
     {
-        return $this->hasMany(UserAnswer::class);
+        return $this->hasMany(UserAnswer::class,'user_id');
+    }
+
+    public function certification()
+    {
+        return $this->hasOne(Certification::class, 'passed_exam_id');
     }
 }

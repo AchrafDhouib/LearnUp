@@ -28,7 +28,7 @@ class QuestionController extends Controller
     {
         try {
             $question = new Question([
-                'exam_id' => $request->input('exam_id'),
+                'exams_id' => $request->input('exams_id'),
                 'question' => $request->input('question'),
                 'type' => $request->input('type'),
             ]);
