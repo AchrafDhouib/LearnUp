@@ -13,7 +13,7 @@ class PassedExamsController extends Controller
     public function index()
     {
         try {
-            $exams = PassedExams::with('student', 'exam')->get();
+            $exams = PassedExams::with('student', 'exam', 'certification')->get();
 
             return response()->json($exams);
         } catch (\Exception $e) {
@@ -24,15 +24,16 @@ class PassedExamsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store($user_id, $exam_id)
     {
         try {
             $exam = new PassedExams([
-                'user_id' => $request->input('user_id'),
-                'exam_id' => $request->input('exam_id'),
+                'user_id' => $user_id,
+                'exam_id' => $exam_id,
+                'score' => 0,
             ]);
             $exam->save();
-
+    
             return response()->json($exam);
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
@@ -45,7 +46,7 @@ class PassedExamsController extends Controller
     public function show($id)
     {
         try {
-            $exam = PassedExams::with('student', 'exam')->findOrFail($id);
+            $exam = PassedExams::with('student', 'exam', 'certification')->findOrFail($id);
 
             return response()->json($exam);
         } catch (\Exception $e) {
@@ -56,18 +57,19 @@ class PassedExamsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update($id, $score)
     {
         try {
             $exam = PassedExams::findOrFail($id);
-            $exam->update($request->all());
-
+            $exam->update([
+                'score' => $score,
+            ]);
+    
             return response()->json($exam);
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */

@@ -94,8 +94,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/passed-exams', [PassedExamsController::class,'index']);
     Route::get('/passed-exams/{id}', [PassedExamsController::class,'show']);
-    Route::post('/passed-exams', [PassedExamsController::class,'store']);
-    Route::put('/passed-exams/{id}', [PassedExamsController::class,'update']);
+    Route::post('/passed-exams/{user_id}/{exam_id}', [PassedExamsController::class, 'store']);
+    Route::put('/passed-exams/{id}/{score}', [PassedExamsController::class, 'update']);
     Route::delete('/passed-exams/{id}', [PassedExamsController::class,'destroy']);
 
     Route::get('/certifications', [CertificationController::class,'index']);

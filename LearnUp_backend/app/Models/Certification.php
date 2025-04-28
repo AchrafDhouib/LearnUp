@@ -10,6 +10,6 @@ class Certification extends Model
 
     public function passedExam()
     {
-        return $this->belongsTo(PassedExams::class);
+        return $this->belongsTo(PassedExams::class, 'passed_exam_id');
     }
 }

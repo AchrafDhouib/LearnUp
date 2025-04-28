@@ -199,15 +199,15 @@ class UserController extends Controller
         }
     }
 
-    public function removeUser(Request $request, $groupId)
+    public function leaveGroup(Request $request, $userId)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'group_id' => 'required|exists:groups,id',
         ]);
 
         try {
-            $group = Group::findOrFail($groupId);
-            $group->users()->detach($request->user_id);
+            $user = User::findOrFail($userId);
+            $user->groups()->detach($request->group_id);
 
             return response()->json(['message' => 'User removed from group successfully.'], 200);
         } catch (\Exception $e) {

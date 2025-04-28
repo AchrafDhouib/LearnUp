@@ -30,7 +30,7 @@ class AnswerController extends Controller
             $answer = new Answer([
                 'question_id' => $request->input('question_id'),
                 'answer' => $request->input('answer'),
-                'is_correct' => $request->input('is_correct '),
+                'is_correct' => $request->input('is_correct'),
             ]);
             $answer->save();
 

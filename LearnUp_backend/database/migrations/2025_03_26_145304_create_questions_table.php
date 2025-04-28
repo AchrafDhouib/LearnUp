@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
+            $table->foreignId('exams_id')->constrained('exams')->onDelete('cascade');
             $table->string('question');
             $table->enum('type', ['multiple_choice', 'unique_choice']);
             $table->timestamps();

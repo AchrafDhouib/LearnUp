@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Exams extends Model
 {
-    protected $fillable = ['description', 'cour_id'];
+    protected $fillable = ['description', 'cours_id'];
 
     public function course(): BelongsTo
     {
-        return $this->belongsTo(Cours::class);
+        return $this->belongsTo(Cours::class,'cours_id');
     }
 
     public function questions(): HasMany
