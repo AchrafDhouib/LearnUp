@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cours extends Model
 {
-    protected $fillable = ['name', 'speciality_id', 'creator_id', 'description', 'image'];
+    protected $fillable = ['name', 'speciality_id', 'creator_id', 'description', 'image', 'is_accepted'];
 
     public function speciality()
     {
@@ -40,5 +40,17 @@ class Cours extends Model
         return $query->whereHas('speciality', function ($q) use ($disciplineId) {
             $q->where('discipline_id', $disciplineId);
         });
+    }
+
+    public function accept()
+    {
+        $this->is_accepted = true;
+        $this->save();
+    }
+
+    public function reject()
+    {
+        $this->is_accepted = false;
+        $this->save();
     }
 }
