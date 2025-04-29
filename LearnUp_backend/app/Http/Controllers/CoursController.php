@@ -33,6 +33,7 @@ class CoursController extends Controller
                 'creator_id' => $request->input('creator_id'),
                 'description' => $request->input('description'),
                 'image' => $request->input('image'),
+                'is_accepted' => 0,
             ]);
             $course->save();
 
@@ -108,5 +109,27 @@ class CoursController extends Controller
         } catch (\Exception $e) {
             return response()->json("'error' {$e->getMessage()}, {$e->getCode()}");
         }
+    }
+    
+    public function accept(string $id)
+    {
+        $course = Cours::findOrFail($id);
+        $course->accept();
+
+        return response()->json([
+            'message' => 'Course accepted successfully!',
+            'course' => $course,
+        ], 202);
+    }
+
+    public function reject(string $id)
+    {
+        $course = Cours::findOrFail($id);
+        $course->reject();
+
+        return response()->json([
+            'message' => 'Course rejected successfully!',
+            'course' => $course,
+        ], 202);
     }
 }

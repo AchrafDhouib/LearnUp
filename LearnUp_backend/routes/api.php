@@ -65,6 +65,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/courses', [CoursController::class, 'store'])->middleware('role:admin|teacher');
     Route::put('/courses/{id}', [CoursController::class, 'update'])->middleware('role:admin|teacher');
     Route::delete('/courses/{id}', [CoursController::class, 'destroy'])->middleware('role:admin|teacher');
+    Route::patch('/courses/{id}/accept', [CoursController::class, 'accept'])->middleware('role:admin');
+    Route::patch('/courses/{id}/reject' , [CoursController::class, 'reject'])->middleware('role:admin');
 
     Route::get('/exams', [ExamsController::class, 'index']);
     Route::post('/exams', [ExamsController::class, 'store'])->middleware('role:admin|teacher');
