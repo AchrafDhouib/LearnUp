@@ -17,7 +17,6 @@ Welcome to the documentation LearnUp app! This document aims to provide you with
 1. Clone the repository: `https://github.com/AchrafDhouib/LearnUp.git`
 2. Navigate to the LearnUp_backend directory and open cmd
 3. Install composer dependencies : `composer install`
-5. Generate Laravel App Key: `php artisan key:generate`
 6. Open administration tool for mysql (like phpMyAdmin)
 7. Create new database named 'learn_up'
 8. import learn_up.sql file
