@@ -27,11 +27,11 @@ Welcome to the documentation LearnUp app! This document aims to provide you with
 
 ## Getting Started
 
-Provide a brief overview of what the LMS app does and how it can benefit users. Mention any prerequisites or initial setup steps that users need to follow.
+Provide a brief overview of what LearnUp app does and how it can benefit users. Mention any prerequisites or initial setup steps that users need to follow.
 
 ## Features
 
-List and describe the main features of your LMS app. This could include:
+List and describe the main features of LearnUp app. This could include:
 
 -   Users (Admin/Teacher/Student) authentication and authorization
 -   Deciplines creation and management
